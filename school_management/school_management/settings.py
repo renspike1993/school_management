@@ -47,11 +47,11 @@ INSTALLED_APPS = [
 
 
 UNFOLD = {
-    "SITE_TITLE": "ColdBlue",
+    "SITE_TITLE": "ColdBlue IT Solution",
     "SITE_HEADER": "ColdBlue IT Solution",
     "SITE_SUBHEADER": "Institutions Management System",
     "SITE_URL": "/",
-    "SITE_SYMBOL": "school",
+    "SITE_SYMBOL": "database",
     "SHOW_HISTORY": True,
     "SHOW_VIEW_ON_SITE": True,
     # "THEME": "light",
