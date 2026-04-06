@@ -6,7 +6,7 @@ from django.contrib import admin
 # from decimal import Decimal
 
 # # Unfold imports
-from unfold.admin import ModelAdmin, TabularInline
+from unfold.admin import ModelAdmin, TabularInline,StackedInline
 from .models import School,Curriculum
 # from .models import (
 #     School, GradeSection, Subject, Instructor, Student,
@@ -106,7 +106,7 @@ class SchoolAdmin(ModelAdmin):
     status.short_description = "status"
     colored_status.short_description = "Status"
     colored_status.admin_order_field = 'status'
-
+from apps.cmo.models import ChedOrders
 # =====================
 # Curriculum Inline
 # =====================
@@ -117,16 +117,36 @@ class CurriculumInline(TabularInline):
     autocomplete_fields = ['program']  # optional for large lists
     show_change_link = True
 
+class ChedOrdersInline(TabularInline):
+    model = ChedOrders
+    extra = 1  # Number of empty rows for adding new curriculums
+    fields = ('compliance_category')
+    show_change_link = True
+
+class BookInline(TabularInline):
+    model = Books
+    extra = 1  # Number of empty rows for adding new curriculums
+    fields = ('title','author','collection',)
+
+    show_change_link = True
 
 
+
+
+# class ChedOrdersInline(TabularInline):
+#     model = ChedOrders
+#     extra = 1  # Number of empty rows for adding new curriculums
+#     fields = ('ra_num','description',)
+
+#     show_change_link = True
 # =====================
 # Program Admin
 # =====================
 @admin.register(Program)
 class ProgramAdmin(ModelAdmin):
-    list_display = ( 'school__abbrevation','program_name', 'major','colored_status')
-    list_filter = ('school', 'started_at')
-    search_fields = ('program_name', 'abbreviation')
+    list_display = ( 'program_name', 'major','colored_status',)
+    list_filter = ('started_at',)
+    search_fields = ('program_name', 'abbreviation',)
     inlines = [CurriculumInline]  # Show curriculums inside Program
 
     def colored_status(self, obj):
@@ -145,9 +165,9 @@ class ProgramAdmin(ModelAdmin):
 
 @admin.register(Curriculum)
 class CurriculumAdmin(ModelAdmin):
-    list_display = [ 'curriculum_name','program','program__school__school_name','colored_status', 'started_at']
-    list_filter = ['started_at']
-    
+    list_display = ['curriculum_name','colored_status', 'program',]
+    list_filter = ['started_at',]
+    search_fields = ( 'curriculum_name',) 
 
     def colored_status(self, obj):
                 color_map = {
@@ -169,11 +189,11 @@ class SubjectAdmin(ModelAdmin):
     list_filter = ['subject_desc']
     search_fields = ('subject_desc',)
     fields = ('subject_code','subject_desc','unit_group','subject_unit',)
-    
+    inlines = [BookInline]
     
 @admin.register(Books)
 class BookAdmin(ModelAdmin):
-    list_display = [ 'title',]
+    list_display = [ 'title','author','collection',]
     list_filter = ['title',]
     search_fields = ('title',)
 

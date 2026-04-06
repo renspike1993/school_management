@@ -6,8 +6,8 @@ from school.models import School
 
 class Registrar(models.Model):
     CATEGORY_CHOICES = [
-        ('Basic Education', 'Basic Education'),
-        ('College Education', 'College Education'),
+        ('Basic Education', 'Basic Education Institution (BEI\'s)'),
+        ('College Education', 'Higher Education Institution (HEI\'s)'),
     ]
 
     school = models.ForeignKey(School, on_delete=models.CASCADE, related_name='registrars')
@@ -19,7 +19,7 @@ class Registrar(models.Model):
 
     class Meta:
         verbose_name = "Registrar"
-        verbose_name_plural = "- a. List of Registrars"
+        verbose_name_plural = "- a. List of Members"
 
 
 
@@ -36,5 +36,5 @@ class Folder(models.Model):
 
     class Meta:
         verbose_name = "Folder"
-        verbose_name_plural = "- b. List of Syllabus"
+        verbose_name_plural = "- b. List of Services"
         ordering = ['-created_at']

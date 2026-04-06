@@ -1,1 +1,30 @@
 python manage.py startapp users apps/record
+
+
+Ched Memorandum Order
+
+CHED-COMPLIANCE/
+│
+├── 01_Legal_Authority_to_Operate 
+        (document requirements,licsence)
+├── 02_Program_PSGs 
+        (facilities required to start a program)
+├── 03_Curriculum_and_General_Education 
+        (assimbly of subjects, and syllabus,leaning material)
+├── 04_Faculty_and_Staff 
+        (Human Resources, Scheduling)
+├── 05_Student_Affairs 
+         (portals)
+├── 06_Quality_Assurance
+         (Minimize manual data entry,db relationships)
+
+├── 07_Autonomous_Deregulated 
+├── 08_Research_and_Journals
+├── 09_COE_COD
+├── 10_Scholarships_Grants
+├── 11_Health_Safety_Flexible_Learning (OPAC,3rd party source)
+├── 12_Internship_Practicum_Clinical
+├── 13_Sports_Wellness
+├── 14_Specialized_Programs
+├── 15_ETEEAP_Ladderized
+└── 16_Governance_Admin

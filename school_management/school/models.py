@@ -1,9 +1,6 @@
 from django.db import models
 
-
-class ChedOrders(models.Model):
-    ra_num = models.CharField(max_length=12, blank=True)
-    
+from apps.cmo.models import ChedOrders
     
 class School(models.Model):
     abbrevation = models.CharField(max_length=12, blank=True,verbose_name="School Abbr")
@@ -33,10 +30,13 @@ class School(models.Model):
 
 
 class Program(models.Model):
-    school = models.ForeignKey(
-        School,
+    
+    ched_orders = models.ForeignKey(
+        ChedOrders,
         on_delete=models.CASCADE,
-        related_name='programs'
+        related_name='ched_orders',
+        blank=True,
+        null=True  # <-- allow null for now
     )
     program_name = models.CharField(max_length=100, blank=True)
     abbreviation = models.CharField(max_length=12, blank=True)
@@ -97,11 +97,17 @@ class Subject(models.Model):
     subject_desc = models.CharField(max_length=100, blank=True)
     subject_unit = models.IntegerField(default=2,blank=False)
     GROUP_CHOICES = [
-        ('I', 'I - Major Subject'),
-        ('II', 'II - Elective Subject'),
-        ('III', 'III - Minor Subject'),
-        ('IV', 'IV - Other'),
-        ('V', 'V - Institutional Subject'),
+        ('I', 'I'),
+        ('II', 'II'),
+        ('III', 'III'),
+        ('IV', 'IV'),
+        ('V', 'V'),
+        ('VI', 'VI'),
+        ('VII', 'VII'),
+        ('VIII', 'VIII'),
+        ('IX', 'IX'),
+        ('X', 'X'),
+
     ]
     unit_group = models.CharField(
         max_length=10,
@@ -128,13 +134,27 @@ class Books(models.Model):
         null=True  # <-- allow null for now
     )
     title = models.CharField(max_length=100, blank=True)
+    author = models.CharField(max_length=100, blank=True)
+    COLLECTION_CHOICES = [
+        ('Circulation', 'Circulation'),
+        ('Filipiniana', 'Filipiniana'),
+        ('References', 'References'),
+        ('General', 'General'),
+
+    ]
+    collection = models.CharField(
+        max_length=20,
+        choices=COLLECTION_CHOICES,
+        default='General',
+        verbose_name="Collections"
+    )
 
     def __str__(self):
         return self.subject.subject_code
 
     class Meta:
         verbose_name = "Book"
-        verbose_name_plural = "- e. List of Books Holdings"
+        verbose_name_plural = "- e. List of Books"
         
         
 

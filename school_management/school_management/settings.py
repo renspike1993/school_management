@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "school_registrar",
     "school_academics",
-    
+    "apps.cmo",
     "school",
 ]
 
@@ -54,6 +54,10 @@ UNFOLD = {
     "SITE_SYMBOL": "database",
     "SHOW_HISTORY": True,
     "SHOW_VIEW_ON_SITE": True,
+    "show_search": True,
+    "show_all_applications": True,
+    "show_search": True,
+    "show_all_applications": True,
     # "THEME": "light",
     "COLORS": {
         "primary": {
@@ -70,7 +74,14 @@ UNFOLD = {
             "950": "8 47 73",
         },
     },
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+    },
+    
+    
 }
+
 # ===== Unfold main settings =====
 #  UNFOLD = {
 #     "SITE_TITLE": "Lubumbashi",
