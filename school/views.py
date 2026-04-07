@@ -1,5 +1,5 @@
 # from django.contrib.auth.decorators import login_required
-# from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 # from django.db.models import Sum
 # from decimal import Decimal
 # from .models import Student, Assignment, Schedule
@@ -83,3 +83,10 @@
 #         return redirect('student_profile')
 #     # Fallback (should not normally happen)
 #     return redirect('student_profile')
+
+
+
+
+def home(request):
+
+    return render(request,"base.html")

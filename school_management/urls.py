@@ -19,6 +19,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),          # Admin site under /admin/
     path('', include('school.urls')),         # Your app’s URLs at the root

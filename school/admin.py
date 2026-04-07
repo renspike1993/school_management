@@ -39,7 +39,7 @@ from .models import School,Curriculum
 
 
 from django.utils.html import format_html
-from .models import School,Curriculum,Program,Books,Subject
+from .models import School,Curriculum,Program,Books,Subject,Syllabus
 
 from django.contrib import admin
 from django.utils.html import format_html
@@ -110,6 +110,15 @@ from apps.cmo.models import ChedOrders
 # =====================
 # Curriculum Inline
 # =====================
+
+
+class SubjectInline(TabularInline):
+    model = Subject
+    extra = 1  # Number of empty rows for adding new curriculums
+    fields = ('subject_code', 'subject_description')
+    autocomplete_fields = ['subject']  # optional for large lists
+    show_change_link = True
+    
 class CurriculumInline(TabularInline):
     model = Curriculum
     extra = 1  # Number of empty rows for adding new curriculums
@@ -168,7 +177,6 @@ class CurriculumAdmin(ModelAdmin):
     list_display = ['curriculum_name','colored_status', 'program',]
     list_filter = ['started_at',]
     search_fields = ( 'curriculum_name',) 
-
     def colored_status(self, obj):
                 color_map = {
                     'pending': 'bg-yellow-100 text-yellow-800',
@@ -196,6 +204,13 @@ class BookAdmin(ModelAdmin):
     list_display = [ 'title','author','collection',]
     list_filter = ['title',]
     search_fields = ('title',)
+
+@admin.register(Syllabus)
+class SyllabusAdmin(ModelAdmin):
+    list_display = [ 'subject','curriculum__program__program_name',]
+    list_filter = ['subject',]
+    search_fields = ('subject',)
+
 
 
 # # ---------- GradeSection ----------

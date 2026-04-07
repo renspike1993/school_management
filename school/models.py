@@ -55,40 +55,13 @@ class Program(models.Model):
     started_at = models.DateField()
 
     def __str__(self):
-        return f" { self.abbreviation } - { self.major }" or self.program_name or "Unnamed Program"
+        return f" { self.abbreviation } - { self.major }" or { } or "Unnamed Program"
 
     class Meta:
         verbose_name = "Program"
         verbose_name_plural = "- b. List of Programs"
 
 
-class Curriculum(models.Model):
-    program = models.ForeignKey(
-        Program,
-        on_delete=models.CASCADE,
-        related_name='curriculums',
-        blank=True,
-        null=True  # <-- allow null for now
-    )
-    curriculum_name = models.CharField(max_length=100, blank=True)
-    started_at = models.DateField()
-    STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('approved', 'Approved'),
-        ('declined', 'Declined'),
-    ]
-    status = models.CharField(
-        max_length=10,
-        choices=STATUS_CHOICES,
-        default='pending',
-        verbose_name="Approved Status"
-    )
-    def __str__(self):
-        return self.program.program_name
-
-    class Meta:
-        verbose_name = "Curriculum"
-        verbose_name_plural = "- c. List of Curriculums"
         
         
 class Subject(models.Model):
@@ -124,6 +97,34 @@ class Subject(models.Model):
         
         
 
+class Curriculum(models.Model):
+    program = models.ForeignKey(
+        Program,
+        on_delete=models.CASCADE,
+        related_name='curriculums',
+        blank=True,
+        null=True  # <-- allow null for now
+    )
+    
+    curriculum_name = models.CharField(max_length=100, blank=True)
+    started_at = models.DateField()
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('declined', 'Declined'),
+    ]
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='pending',
+        verbose_name="Approved Status"
+    )
+    def __str__(self):
+        return f"{self.program}"
+
+    class Meta:
+        verbose_name = "Curriculum"
+        verbose_name_plural = "- c. List of Curriculums"
 
 class Books(models.Model):
     subject = models.ForeignKey(
@@ -157,4 +158,41 @@ class Books(models.Model):
         verbose_name_plural = "- e. List of Books"
         
         
+
+
+class Syllabus(models.Model):
+    
+    subject = models.ForeignKey(
+        Subject,
+        on_delete=models.CASCADE,
+        related_name='subject_curriculum',
+        blank=True,
+        null=True  # <-- allow null for now
+    )
+    curriculum = models.ForeignKey(
+        Curriculum,
+        on_delete=models.CASCADE,
+        related_name='syllabus_curriculum',
+        blank=True,
+        null=True  # <-- allow null for now
+    )
+    
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('declined', 'Declined'),
+    ]
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='pending',
+        verbose_name="Syllabus Status"
+    )
+
+    def __str__(self):
+        return f"{self.subject} if {self.subject} else {'No Related Record'}"
+
+    class Meta:
+        verbose_name = "Syllaby"
+        verbose_name_plural = "- f.  List of Syllabus"
 
