@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Optional: Add a custom font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="max-w-2xl w-full bg-white shadow-xl rounded-2xl p-8 border-t-4 border-red-500">
+        <!-- Main heading -->
+        <h1 class="text-5xl font-bold text-red-600 mb-4 text-center">403</h1>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Forbidden – Access Denied</h2>
+
+        <!-- Warning message (alert style) -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg mb-8">
+            <div class="flex items-start">
+                <svg class="h-6 w-6 text-yellow-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <div>
+                    <p class="font-bold text-yellow-800 mb-2">⚠️ Security Alert</p>
+                    <ul class="list-disc list-inside text-yellow-800 space-y-2 text-sm md:text-base">
+                        <li>System detected that you are trying to access a page that is prohibited to you.</li>
+                        <li>Each attempt is stored in log history. If you insist on visiting a prohibited site for 5 consecutive times, the system will automatically disable your account.</li>
+                        <li>Access across unrecognized origin is also counted in warning attempts, including accessing routes in a non‑human speed. All routes are monitored in the system. Please do not attempt any basic form of hacking.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional info and home link -->
+        <p class="text-gray-600 mb-6 text-center">If you believe this is an error, please contact your system administrator.</p>
+        <div class="text-center">
+            <a href="/" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-200 shadow-md">
+                ← Return to Homepage
+            </a>
+        </div>
+    </div>
+</body>
+</html>
