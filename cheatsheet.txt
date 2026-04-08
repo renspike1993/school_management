@@ -1,4 +1,4 @@
-python manage.py startapp users apps/record
+python manage.py startapp users apps/school
 
 
 Ched Memorandum Order

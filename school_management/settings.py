@@ -38,10 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "school_registrar",
-    "school_academics",
-    "apps.cmo",
-    "school",
+    # "school_registrar",
+    # "school_academics",
+    # "apps.cmo",
+    # "school",
+    "apps.school_a",
 ]
 
 
@@ -77,9 +78,10 @@ UNFOLD = {
     "SIDEBAR": {
         "show_search": True,
         "show_all_applications": False,
+        
     },
     
-    
+    "navigation_expanded": True,
 }
 
 # ===== Unfold main settings =====
@@ -205,9 +207,9 @@ DATABASES = {
     }
 }
 
-LOGIN_REDIRECT_URL = 'post_login_redirect'
-LOGIN_URL = 'login'
-LOGOUT_REDIRECT_URL = 'login'
+# LOGIN_REDIRECT_URL = 'post_login_redirect'
+# LOGIN_URL = 'login'
+# LOGOUT_REDIRECT_URL = 'login'
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
