@@ -1,13 +1,103 @@
-{% extends "base.html" %}
-{% block title %}Account - School Management System{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Exam</title>
+    <style>
+        .question-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
 
-{% block page_title %}
-    <i class="fas fa-user-circle"></i> Entrance Exam
-{% endblock %}
+        .choices img {
+            width: 120px;
+            height: auto;
+            margin-right: 10px;
+            border: 2px solid transparent;
+        }
 
-{% block content %}
+        .choices label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
 
+<h2>Exam Page</h2>
+<p>Attempt ID: {{ attempt.id }}</p>
 
+<form method="POST">
+    {% csrf_token %}
 
+    {% for q in questions %}
+        <div class="question-box">
 
-{% endblock %}
+            <h4>Q{{ forloop.counter }}. 
+                {% if q.question_text %}
+                    {{ q.question_text }}
+                {% else %}
+                    (Image Question)
+                {% endif %}
+            </h4>
+
+            <!-- ================= MCQ TEXT ================= -->
+            {% if q.question_type == "mcq" %}
+                <label>
+                    <input type="radio" name="q{{ q.id }}" value="A">
+                    A. {{ q.choice_a }}
+                </label>
+
+                <label>
+                    <input type="radio" name="q{{ q.id }}" value="B">
+                    B. {{ q.choice_b }}
+                </label>
+
+                <label>
+                    <input type="radio" name="q{{ q.id }}" value="C">
+                    C. {{ q.choice_c }}
+                </label>
+
+                <label>
+                    <input type="radio" name="q{{ q.id }}" value="D">
+                    D. {{ q.choice_d }}
+                </label>
+            {% endif %}
+
+            <!-- ================= IMAGE TYPE ================= -->
+            {% if q.question_type == "abstract" %}
+                <div class="choices">
+
+                    <label>
+                        <input type="radio" name="q{{ q.id }}" value="A">
+                        <img src="{{ q.image_a.url }}">
+                    </label>
+
+                    <label>
+                        <input type="radio" name="q{{ q.id }}" value="B">
+                        <img src="{{ q.image_b.url }}">
+                    </label>
+
+                    <label>
+                        <input type="radio" name="q{{ q.id }}" value="C">
+                        <img src="{{ q.image_c.url }}">
+                    </label>
+
+                    <label>
+                        <input type="radio" name="q{{ q.id }}" value="D">
+                        <img src="{{ q.image_d.url }}">
+                    </label>
+
+                </div>
+            {% endif %}
+
+        </div>
+    {% endfor %}
+
+    <button type="submit">Submit Exam</button>
+</form>
+
+</body>
+</html>

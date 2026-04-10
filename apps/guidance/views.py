@@ -4,6 +4,29 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from .models import ExamAttempt, Question
 from .services import ExamService
+from .models import Question, ExamAttempt, Examinee
+
+
+
+def student_exam_page(request):
+    # get logged-in user as examinee
+    examinee = get_object_or_404(Examinee, user=request.user)
+
+    # create or get active attempt (optional logic)
+    attempt, created = ExamAttempt.objects.get_or_create(
+        examinee=examinee,
+        finished_at__isnull=True
+    )
+
+    # load all questions
+    questions = Question.objects.select_related('category').all()
+
+    context = {
+        "attempt": attempt,
+        "questions": questions
+    }
+    return render(request, "exam/student_exam.html", context)
+
 
 
 def start_exam(request):
