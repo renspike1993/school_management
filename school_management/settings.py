@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-hv4w(=o-$hyx)3x2yr_o=1h(@29!rll^gygz59aeglt40yq+ou
 DEBUG = True
 
 ALLOWED_HOSTS = ['lubumbashi2026.pythonanywhere.com','127.0.0.1']
-
+AUTH_USER_MODEL = 'accounts.User'
 
 # Application definition
 
@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     # "apps.cmo",
     # "school",
     # "apps.school_a",
+    
+    "apps.accounts",
+    "apps.guidance",
+
 ]
 
 
