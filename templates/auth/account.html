@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% block title %}Account - School Management System{% endblock %}
+
+{% block page_title %}
+    <i class="fas fa-user-circle"></i> Account Settings
+{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px;">
+    <!-- Welcome Section -->
+    <div style="margin-bottom: 32px;">
+        <h2 style="font-size: 24px; font-weight: 600; color: #1a1f36; margin-bottom: 8px; letter-spacing: -0.3px;">
+            Welcome back, {{ user.first_name|default:user.email }}! 👋
+        </h2>
+        <p style="color: #6b7280; font-size: 14px;">
+            Manage your account information and preferences
+        </p>
+    </div>
+
+    <!-- Account Details Card -->
+    <div style="background: #ffffff; border: 1px solid #eef2f6; border-radius: 16px; overflow: hidden; margin-bottom: 24px;">
+        <div style="padding: 20px 24px; border-bottom: 1px solid #eef2f6; background: #fafbfc;">
+            <h3 style="font-size: 16px; font-weight: 600; color: #1a1f36; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-id-card" style="color: #6b7280; font-size: 16px;"></i>
+                Account Information
+            </h3>
+        </div>
+        
+        <div style="padding: 24px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <!-- Email -->
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fas fa-envelope" style="margin-right: 6px; font-size: 11px;"></i>
+                        Email Address
+                    </label>
+                    <p style="font-size: 15px; font-weight: 500; color: #1a1f36;">{{ user.email }}</p>
+                </div>
+                
+                <!-- Role -->
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fas fa-user-tag" style="margin-right: 6px; font-size: 11px;"></i>
+                        Role
+                    </label>
+                    <p style="font-size: 15px; font-weight: 500; color: #1a1f36;">
+                        {% if user.role == 'admin' %}
+                            <span style="background: #fef2f2; color: #991b1b; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500;">
+                                <i class="fas fa-shield-alt"></i> Administrator
+                            </span>
+                        {% elif user.role == 'teacher' %}
+                            <span style="background: #eff6ff; color: #1e40af; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500;">
+                                <i class="fas fa-chalkboard-user"></i> Teacher
+                            </span>
+                        {% elif user.role == 'student' %}
+                            <span style="background: #f0fdf4; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500;">
+                                <i class="fas fa-graduation-cap"></i> Student
+                            </span>
+                        {% else %}
+                            <span style="background: #f3f4f6; color: #4b5563; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500;">
+                                {{ user.role|default:"User" }}
+                            </span>
+                        {% endif %}
+                    </p>
+                </div>
+                
+                <!-- Status -->
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fas fa-circle" style="margin-right: 6px; font-size: 10px;"></i>
+                        Account Status
+                    </label>
+                    <p style="font-size: 15px; font-weight: 500; color: #1a1f36;">
+                        {% if user.is_active %}
+                            <span style="color: #10b981;">
+                                <i class="fas fa-check-circle"></i> Active
+                            </span>
+                        {% else %}
+                            <span style="color: #ef4444;">
+                                <i class="fas fa-times-circle"></i> Inactive
+                            </span>
+                        {% endif %}
+                    </p>
+                </div>
+                
+                <!-- Verification Status -->
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fas fa-badge-check" style="margin-right: 6px; font-size: 11px;"></i>
+                        Email Verification
+                    </label>
+                    <p style="font-size: 15px; font-weight: 500; color: #1a1f36;">
+                        {% if user.is_verified %}
+                            <span style="color: #10b981;">
+                                <i class="fas fa-check-circle"></i> Verified
+                            </span>
+                        {% else %}
+                            <span style="color: #f59e0b;">
+                                <i class="fas fa-clock"></i> Pending
+                            </span>
+                        {% endif %}
+                    </p>
+                </div>
+                
+                <!-- Admin Privileges -->
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fas fa-lock" style="margin-right: 6px; font-size: 11px;"></i>
+                        Admin Access
+                    </label>
+                    <p style="font-size: 15px; font-weight: 500; color: #1a1f36;">
+                        {% if user.is_staff %}
+                            <span style="color: #8b5cf6;">
+                                <i class="fas fa-key"></i> Full Access
+                            </span>
+                        {% else %}
+                            <span style="color: #6b7280;">
+                                <i class="fas fa-lock"></i> Standard User
+                            </span>
+                        {% endif %}
+                    </p>
+                </div>
+                
+                <!-- Member Since (if you have date_joined field) -->
+                {% if user.date_joined %}
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fas fa-calendar-alt" style="margin-right: 6px; font-size: 11px;"></i>
+                        Member Since
+                    </label>
+                    <p style="font-size: 15px; font-weight: 500; color: #1a1f36;">
+                        {{ user.date_joined|date:"F j, Y" }}
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Name Information Card -->
+    <div style="background: #ffffff; border: 1px solid #eef2f6; border-radius: 16px; overflow: hidden; margin-bottom: 24px;">
+        <div style="padding: 20px 24px; border-bottom: 1px solid #eef2f6; background: #fafbfc;">
+            <h3 style="font-size: 16px; font-weight: 600; color: #1a1f36; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-user" style="color: #6b7280; font-size: 16px;"></i>
+                Personal Information
+            </h3>
+        </div>
+        
+        <div style="padding: 24px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fas fa-user" style="margin-right: 6px; font-size: 11px;"></i>
+                        First Name
+                    </label>
+                    <p style="font-size: 15px; font-weight: 500; color: #1a1f36;">
+                        {{ user.first_name|default:"Not set" }}
+                    </p>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fas fa-user" style="margin-right: 6px; font-size: 11px;"></i>
+                        Last Name
+                    </label>
+                    <p style="font-size: 15px; font-weight: 500; color: #1a1f36;">
+                        {{ user.last_name|default:"Not set" }}
+                    </p>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 500; color: #6b7280; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <i class="fas fa-signature" style="margin-right: 6px; font-size: 11px;"></i>
+                        Full Name
+                    </label>
+                    <p style="font-size: 15px; font-weight: 500; color: #1a1f36;">
+                        {% if user.get_full_name %}
+                            {{ user.get_full_name }}
+                        {% else %}
+                            <span style="color: #9ca3af;">Not provided</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+        <div style="display: flex; gap: 12px;">
+            <button class="btn btn-primary" onclick="alert('Edit profile functionality coming soon!')">
+                <i class="fas fa-edit"></i>
+                Edit Profile
+            </button>
+            <button class="btn btn-outline" onclick="alert('Change password functionality coming soon!')">
+                <i class="fas fa-key"></i>
+                Change Password
+            </button>
+        </div>
+        
+        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline" style="border-color: #fee2e2; color: #dc2626;">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .btn {
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+    
+    .btn-primary {
+        background: #1a1f36;
+        color: white;
+        border: none;
+    }
+    
+    .btn-primary:hover {
+        background: #0f1322;
+        transform: translateY(-1px);
+    }
+    
+    .btn-outline {
+        background: transparent;
+        border: 1px solid #e5e9f0;
+        color: #4b5563;
+    }
+    
+    .btn-outline:hover {
+        background: #f9fafb;
+        border-color: #9ca3af;
+    }
+</style>
+
+{% endblock %}
