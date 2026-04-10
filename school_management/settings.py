@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # "school_academics",
     # "apps.cmo",
     # "school",
-    "apps.school_a",
+    # "apps.school_a",
 ]
 
 
